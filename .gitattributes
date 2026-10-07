@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Rainmeter expects Windows line endings
+*.ini text eol=crlf
+*.lua text eol=crlf
+*.rmskin binary
