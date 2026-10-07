@@ -1,0 +1,24 @@
+{
+  "mode": "daily",
+  "anchor": {
+    "date": "2026-10-07",
+    "index": 0
+  },
+  "words": [
+    {
+      "word": "prosperous",
+      "pos": "adjective",
+      "definition": "Successful and thriving, especially in financial terms; flourishing."
+    },
+    {
+      "word": "sedulous",
+      "pos": "adjective",
+      "definition": "Showing steady dedication and careful, persistent effort; diligent."
+    },
+    {
+      "word": "equanimous",
+      "pos": "adjective",
+      "definition": "Calm and even-tempered, especially in difficult or stressful situations."
+    }
+  ]
+}
