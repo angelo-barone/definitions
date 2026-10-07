@@ -19,8 +19,8 @@ Both widgets read [`words.json`](words.json), so they always show the same word.
 ## PC setup (Windows, one time)
 
 1. Install **Rainmeter** (free) from [rainmeter.net](https://www.rainmeter.net).
-2. Download [`pc/WordOfTheDay.rmskin`](pc/WordOfTheDay.rmskin) and double-click it, then click **Install**.
-3. Drag the widget to where you want it. To keep it there, right-click it → **Settings** → **Position** → **On desktop**.
+2. Download [`pc/WordOfTheDay.rmskin`](pc/WordOfTheDay.rmskin), double-click it, then click **Install**.
+   This removes Rainmeter's sample widgets and puts the word in the top left of your desktop.
 
 Right-click the widget → **Refresh word list now** to pull new words immediately.
 Otherwise it checks every 30 minutes.
