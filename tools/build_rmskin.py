@@ -12,16 +12,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKIN = ROOT / "pc" / "WordOfTheDay"
+LAYOUT = ROOT / "pc" / "Layout" / "Rainmeter.ini"
 OUT = ROOT / "pc" / "WordOfTheDay.rmskin"
 
 RMSKIN_INI = """[rmskin]
 Name=Word of the Day
 Author=angelo-barone
-Version=1.0
+Version=1.1
 MinimumRainmeter=4.5.0
 MinimumWindows=10.0
-LoadType=Skin
-Load=WordOfTheDay\\WordOfTheDay.ini
+LoadType=Layout
+Load=WordOfTheDay
 """
 
 
@@ -35,6 +36,8 @@ def main():
         z.writestr("RMSKIN.ini", crlf(RMSKIN_INI))
         for name in ("WordOfTheDay.ini", "WordOfTheDay.lua"):
             z.writestr(f"Skins/WordOfTheDay/{name}", crlf((SKIN / name).read_text(encoding="utf-8")))
+        # Loading the layout unloads all other skins and places the widget top left.
+        z.writestr("Layouts/WordOfTheDay/Rainmeter.ini", crlf(LAYOUT.read_text(encoding="utf-8")))
     data = buf.getvalue()
     OUT.write_bytes(data + struct.pack("<QB7s", len(data), 0, b"RMSKIN\0"))
     print(f"wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size} bytes)")

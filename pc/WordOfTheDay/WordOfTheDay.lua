@@ -163,7 +163,7 @@ local THEMES = {
   dark = { bg = '28,28,30,235', text = '242,242,247,255', muted = '161,161,166,255' },
 }
 
-local data, lastBody, lastKey, cachePath
+local data, lastBody, lastKey, cachePath, downloadPath, problem, startTime
 
 local function readFile(path)
   local f = io.open(path, 'rb')
@@ -180,12 +180,14 @@ local function writeFile(path, s)
   f:close()
 end
 
+-- Returns the parsed data, or nil plus a reason.
 local function tryParse(body)
-  if not body or body == '' then return nil end
+  if not body or body == '' then return nil, 'empty' end
+  body = body:gsub('^\239\187\191', '') -- strip a UTF-8 BOM if present
   local ok, parsed = pcall(JsonDecode, body)
-  if ok and IsValid(parsed) then return parsed end
-  print('WordOfTheDay: ignoring invalid words.json (' .. tostring(parsed) .. ')')
-  return nil
+  if not ok then return nil, tostring(parsed) end
+  if not IsValid(parsed) then return nil, 'missing fields' end
+  return parsed
 end
 
 local function setText(meter, text)
@@ -208,9 +210,9 @@ local function render(theme)
     setText('MeterPos', w.pos or '')
     setText('MeterDefinition', w.definition)
   else
-    setText('MeterWord', 'Loading...')
+    setText('MeterWord', problem and 'Not loaded' or 'Loading...')
     setText('MeterPos', '')
-    setText('MeterDefinition', 'Waiting for the word list to download.')
+    setText('MeterDefinition', problem or 'Downloading the word list.')
   end
 
   SKIN:Bang('!UpdateMeter', '*')
@@ -219,23 +221,35 @@ end
 
 function Initialize()
   cachePath = SKIN:MakePathAbsolute('cache.json')
+  downloadPath = SKIN:MakePathAbsolute('DownloadFile\\words.json')
+  startTime = os.time()
   data = tryParse(readFile(cachePath))
 end
 
--- Runs every second but only redraws when the data, the date or the theme changes.
+-- Runs every second but only redraws when the data, the date, the theme or the status changes.
 function Update()
-  local body = SKIN:GetMeasure('MeasureFetch'):GetStringValue()
-  if body ~= '' and body ~= lastBody then
+  -- MeasureFetch saves words.json to disk; its string value is the saved file's path.
+  local path = SKIN:GetMeasure('MeasureFetch'):GetStringValue()
+  if not path:match('%.json$') then path = downloadPath end
+  local body = readFile(path)
+  if body and body ~= '' and body ~= lastBody then
     lastBody = body
-    local parsed = tryParse(body)
+    local parsed, err = tryParse(body)
     if parsed then
       data = parsed
+      problem = nil
       writeFile(cachePath, body)
+    else
+      problem = 'Word list could not be read (' .. err .. ').'
+      print('WordOfTheDay: ' .. problem)
     end
+  end
+  if not data and not problem and os.time() - startTime > 60 then
+    problem = "Can't download the word list. Check the internet, then right-click > Refresh word list now."
   end
 
   local theme = SKIN:GetMeasure('MeasureTheme'):GetValue() == 1 and 'light' or 'dark'
-  local key = os.date('%Y-%m-%d') .. theme .. tostring(data)
+  local key = os.date('%Y-%m-%d') .. theme .. tostring(data) .. tostring(problem)
   if key ~= lastKey then
     lastKey = key
     render(theme)
