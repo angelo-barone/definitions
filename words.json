@@ -1,7 +1,7 @@
 {
   "mode": "weekly",
   "anchor": {
-    "date": "2026-10-07",
+    "date": "2026-10-08",
     "index": 0
   },
   "words": [
@@ -13,17 +13,22 @@
     {
       "word": "sedulous",
       "pos": "adjective",
-      "definition": "Showing steady dedication and careful, persistent effort; diligent."
+      "definition": "Working hard and never giving up"
     },
     {
       "word": "equanimous",
       "pos": "adjective",
-      "definition": "Calm and even-tempered, especially in difficult or stressful situations."
+      "definition": "Calm and in control of emotions"
     },
     {
       "word": "success",
       "pos": "noun",
       "definition": "The accomplishment of an aim or purpose, or the gaining of wealth or status."
+    },
+    {
+      "word": "placid",
+      "pos": "adjective",
+      "definition": "Calm and peaceful"
     }
   ]
 }
