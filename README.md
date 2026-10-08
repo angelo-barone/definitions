@@ -1,7 +1,8 @@
-# definitions
+# Word of the Day
 
-A word-of-the-day widget for the iPhone home screen and the Windows desktop.
-Both widgets read [`words.json`](words.json), so they always show the same word.
+A little widget that shows a new word every day (or every week) — one on your
+iPhone home screen, one on your Windows desktop. They both read from the same
+list, so they always agree.
 
 - **Daily or weekly:** in weekly mode the word changes on Sunday.
 - **List order:** after the last word, the cycle starts again from the top.
@@ -27,8 +28,11 @@ Otherwise it checks every 30 minutes.
 
 ## Changing words
 
-Ask Claude, e.g. "add *laconic*", "remove *sedulous*", "switch to weekly".
-Under the hood that runs [`tools/wordctl.py`](tools/wordctl.py):
+Just ask Claude, e.g. "add *laconic*", "remove *sedulous*", "switch to weekly".
+Claude makes the change for you and pushes it live — no setup needed on your end.
+
+If you'd rather do it yourself, the change lives in one file, [`words.json`](words.json),
+and there's a helper script for editing it safely:
 
 ```
 python3 tools/wordctl.py today
@@ -39,4 +43,4 @@ python3 tools/wordctl.py edit laconic --def "New definition."
 python3 tools/wordctl.py mode weekly
 ```
 
-Changes go live once they're on `main`. The widgets download from there.
+Changes go live as soon as they're on `main` — both widgets download from there.
