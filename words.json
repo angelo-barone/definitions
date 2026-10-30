@@ -1,8 +1,8 @@
 {
   "mode": "weekly",
   "anchor": {
-    "date": "2026-10-08",
-    "index": 0
+    "date": "2026-10-30",
+    "index": 3
   },
   "words": [
     {
@@ -29,6 +29,11 @@
       "word": "placid",
       "pos": "adjective",
       "definition": "Calm and peaceful"
+    },
+    {
+      "word": "ambition",
+      "pos": "noun",
+      "definition": "A strong desire to achieve something, such as success, power, or a particular goal."
     }
   ]
 }
