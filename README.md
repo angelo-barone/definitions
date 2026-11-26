@@ -1,13 +1,11 @@
-# Word of the Day
+# Word of the Week
 
-A little widget that shows a new word every day (or every week) — one on your
-iPhone home screen, one on your Windows desktop. They both read from the same
-list, so they always agree.
+A small widget that shows one word and its definition on an iPhone home screen and on a Windows desktop. Both read the same list, so they always show the same word.
 
-- **Daily or weekly:** in weekly mode the word changes on Sunday.
+- **Weekly or daily:** in weekly mode (the current setting) the word changes on Sunday.
 - **List order:** after the last word, the cycle starts again from the top.
 - **New words** go to the end of the list.
-- **Light/dark** follows your phone and Windows theme.
+- **Light and dark** follow the phone and Windows theme.
 
 ## iPhone setup (one time)
 
@@ -28,8 +26,8 @@ Otherwise it checks every 30 minutes.
 
 ## Changing words
 
-Just ask Claude, e.g. "add *laconic*", "remove *sedulous*", "switch to weekly".
-Claude makes the change for you and pushes it live — no setup needed on your end.
+Ask Claude, for example "add *laconic*", "remove *sedulous*" or "switch to daily".
+Claude makes the change and pushes it live, with no setup needed.
 
 If you'd rather do it yourself, the change lives in one file, [`words.json`](words.json),
 and there's a helper script for editing it safely:
@@ -43,4 +41,12 @@ python3 tools/wordctl.py edit laconic --def "New definition."
 python3 tools/wordctl.py mode weekly
 ```
 
-Changes go live as soon as they're on `main` — both widgets download from there.
+Changes go live as soon as they're on `main`, because both widgets download from there.
+
+## How it was made
+
+Built with Claude (Claude Code). Angelo Barone directs the features and tests it.
+
+## License
+
+MIT. See `LICENSE`.
